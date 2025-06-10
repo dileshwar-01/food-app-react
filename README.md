@@ -5,7 +5,7 @@ It showcases a simple and clean food-related UI — ideal for practicing React c
 
 ## 🚀 Live Demo
 
-Check out the live version here: [food-ap-react.netlify.app](https://food-ap-react.netlify.app)
+Check out the live version here: [food-ap-react.netlify.app](https://food-app-best-eats.netlify.app)
 
 ## 🛠️ Tech Stack
 
