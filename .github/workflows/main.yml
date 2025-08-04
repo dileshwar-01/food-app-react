@@ -59,4 +59,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/food-app-react:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/food-app-react:latest
