@@ -33,6 +33,13 @@ jobs:
     - name: Run GitLeaks 
       uses: gitleaks/gitleaks-action@v2.3.4
 
+    - name: Upload GitLeaks Artifact
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: gitleaks-report-sarif
+        path: gitleaks-report.sarif
+
   Docker_Build_Trivy_Scan:
     name: Docker Build and Image Scanning
     runs-on: ubuntu-latest
