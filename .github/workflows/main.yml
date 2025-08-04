@@ -30,6 +30,9 @@ jobs:
           -Dsonar.host.url=http://13.233.197.39:9000 \
           -Dsonar.login=$SONAR_TOKEN
 
+    - name: Run GitLeaks 
+      uses: gitleaks/gitleaks-action@v2.3.4
+
   Docker_Build_Trivy_Scan:
     name: Docker Build and Image Scanning
     runs-on: ubuntu-latest
@@ -60,3 +63,10 @@ jobs:
         context: .
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/food-app-react:latest
+
+    - name: Upload Trivy Scan Report as artifact
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:  
+        name: trivy-report
+        path: trivy-report.txt
