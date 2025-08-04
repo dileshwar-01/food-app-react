@@ -38,7 +38,7 @@ jobs:
       if: always()
       with:
         name: gitleaks-report-sarif
-        path: gitleaks-report.sarif
+        path: results.sarif
 
   Docker_Build_Trivy_Scan:
     name: Docker Build and Image Scanning
