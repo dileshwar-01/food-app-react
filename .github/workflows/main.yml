@@ -46,7 +46,7 @@ jobs:
       with:
         image-ref: food-app-react:latest
         format: table
-        severity: CRITICAL, HIGH
+        severity: CRITICAL,HIGH
 
     - name: Login to DockerHUB
       uses: docker/login-action@v3.4.0
