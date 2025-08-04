@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   Sast_Scan:
-    name: Run Sonar Scan
+    name: SAST_SCAN
     runs-on: ubuntu-latest
     
     steps:
@@ -29,6 +29,13 @@ jobs:
           -Dsonar.sources=src \
           -Dsonar.host.url=http://13.233.197.39:9000 \
           -Dsonar.login=$SONAR_TOKEN
+
+    - name: Check Sonar Quality Gates
+      uses: SonarSource/sonarqube-quality-gate-action@v1.2.0
+      with:
+        sonar-token: ${{ secrets.SONAR_TOKEN }}
+        projectKey: react-devsecops
+        serverUrl: http://13.233.197.39:9000
 
     - name: Install GitLeaks 
       run: |
@@ -81,3 +88,38 @@ jobs:
       with:  
         name: trivy-report
         path: trivy-report.txt
+
+  DAST_SCAN:
+    name: DAST_SCAN
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4.2.2
+      
+    - name: Run OWASP ZAP BASELINE SCAN
+      uses: zaproxy/action-baseline@v0.14.0
+      with:
+        target: 'http://localhost:3000'
+
+  NPM_TESTS:
+    name: NPM_SCAN
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4.2.2
+
+    - name: Run ES Lint
+      run: npm run lint
+
+    - name: Run Unit Tests
+      run: npm test -- --coverage
+
+    - name: Upload NPM Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: npm-report
+        path: npm-report.txt
+      
